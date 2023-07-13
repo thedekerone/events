@@ -9,27 +9,67 @@ datasource db {
 
 model Event {
   id Int @id @default(autoincrement())
-  name String
-  description String?
-  organizer String?
-  organizerId Int?
-  published Boolean @default(false)
-  author String?
-  authorId Int?
-  created DateTime @default(now())
-  updated DateTime @updatedAt @default(now())
-  tickets Ticket[] 
+  title String
+  location String?
+  bg_type String?
+  bg_color String?
+  bg_image EventImages? @relation(fields: [bg_image_id], references: [id])
+  bg_image_id Int?
+  description String
+  start_date DateTime
+  end_date DateTime
+  on_sale_date DateTime?
+  user_ids Int[]
+  currency_id Int
+  sales_volume Int 
+  organiser_fees_volume Int? @default(0)
+  organiser_fee_fixed Int? @default(0)
+  organiser_fee_percentage Int? @default(0)
+  organiser_id Int
+  venue_name String?
+  venue_name_full String?
+  location_address String
+  location_address_line_1 String?
+  location_address_line_2 String?
+  location_country String?
+  location_country_code String?
+  location_province String?
+  location_city String?
+  location_post_code String?
+  location_street_number String?
+  location_lat String?
+  location_long String?
+  location_google_place_id String?
+  pre_order_display_message String?
+  post_order_display_message String?
+  social_share_text String?
+  social_show_facebook String?
+  social_show_linkedin String?
+  social_show_twitter String?
+  social_show_email String?
+  location_is_manual Boolean?
+  is_live Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime?
+  barcode_type String?
+  ticket_border_color String?
+  ticket_bg_color String?
+  ticket_text_color String?
+  ticket_sub_text_color String?
+  google_tag_manager_code String?
+  social_show_whatsapp Boolean?
+  checkout_timeout_after DateTime?
+  event_image_position String?
   @@map("events")
 }
 
-model Ticket {
+model EventImages {
   id Int @id @default(autoincrement())
-  valid Boolean @default(true)
-  expirationDate DateTime?
-  userId String?
-  created DateTime @default(now())
-  updated DateTime @updatedAt @default(now())
-  event Event? @relation(fields: [eventId], references: [id])
-  eventId Int? 
-  @@map("tickets")
+  image_path String
+  created_at DateTime
+  updated_at DateTime
+  event Event[]
+  event_id Int 
+  @@map("event_images")
 }

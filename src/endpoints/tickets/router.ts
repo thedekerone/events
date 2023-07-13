@@ -7,5 +7,4 @@ eventsRouter.get<{ id: string }>('/:id', async (req, res) => {
     const { id } = req.params
     const ticket = await getTicketById(Number(id))
     res.send(ticket)
-
 })
